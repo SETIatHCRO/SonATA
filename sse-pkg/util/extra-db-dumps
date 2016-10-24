@@ -1,0 +1,10 @@
+mysqldump -h sse100 kepler6667mhz > /Sse.Arc6/sonata/sonata_archive/databases/save/dump-kepler6667mhz-2013-09-04
+mysqldump -h sse100 kepler6867mhz > /Sse.Arc6/sonata/sonata_archive/databases/save/dump-kepler6867mhz-2013-09-04
+mysqldump -h sse100 kepler8960mhz > /Sse.Arc6/sonata/sonata_archive/databases/save/dump-kepler8960mhz-2013-09-04
+mysqldump -h sse100 exoplanets6667mhz > /Sse.Arc6/sonata/sonata_archive/databases/save/dump-exoplanets6667mhz-2013-09-04
+mysqldump -h sse100 exoplanets6867mhz > /Sse.Arc6/sonata/sonata_archive/databases/save/dump-exoplanets6867mhz-2013-09-04
+mysqldump -h sse100 exoplanets8960mhz > /Sse.Arc6/sonata/sonata_archive/databases/save/dump-exoplanets8960mhz-2013-09-04
+mysqldump -h sse100 exoplanets8960mhz > /Sse.Arc6/sonata/sonata_archive/databases/save/dump-exoplanets8960mhz-2013-09-04
+mysqldump -h sse100 galcenter > /Sse.Arc6/sonata/sonata_archive/databases/save/dump-galcenter-2013-09-04
+mysqldump -h sse100 ldn1662_1500 > /Sse.Arc6/sonata/sonata_archive/databases/save/dump-ldn1662_1500-2013-09-04
+

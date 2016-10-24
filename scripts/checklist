@@ -1,0 +1,13 @@
+your file
+
+db set name {galcenter} current 
+
+
+switch to file
+
+db set name galcenter2
+
+Kepler tcl file
+
+exec /home/sonata/scripts/circle 0.234
+

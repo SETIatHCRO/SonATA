@@ -1,0 +1,18 @@
+mysql> select activityId, dxNumber as Zx, format(rfFreq,6) as RFFreq, format(drift,3) as Drift, reason, signalIdNUmber as SignalId, origSignalIdNumber as origSignalId, Activities.type from ZxCandidateSignals, Activities where ZxCandidateSignals.activityId = Activities.id and rfFreq > 1410.029 and rfFreq < 1410.030 and activityId > 1128 order by activityId;
++------------+------+--------------+--------+---------+------------+--------------+-----------------------+
+| activityId | Zx   | RFFreq       | Drift  | reason  | SignalId   | origSignalId | type                  |
++------------+------+--------------+--------+---------+------------+--------------+-----------------------+
+|       1129 | 1900 | 1,410.029708 | -0.008 | Confrm  | 1364443664 |           -1 | target                |
+|       1130 | 1900 | 1,410.029735 | -0.008 | RConfrm | 1364443995 |   1364443664 | target1-on            |
+|       1131 | 1900 | 1,410.029732 | -0.008 | RConfrm | 1364444310 |           -1 | target1off            |
+|       1132 | 1900 | 1,410.029784 | 0.213  | RConfrm | 1364444667 |   1364444310 | target2-on            |
+|       1133 | 1900 | 1,410.029856 | 0.213  | RConfrm | 1364445004 |           -1 | target2off            |
+|       1135 | 1900 | 1,410.029829 | 0.141  | Confrm  | 1364445443 |           -1 | target3-on            |
+|       1136 | 1900 | 1,410.029915 | 0.060  | RConfrm | 1364445772 |   1364445443 | target3off            |
+|       1137 | 1900 | 1,410.029844 | 0.037  | Confrm  | 1364446101 |           -1 | target4-on            |
+|       1138 | 1900 | 1,410.029950 | 0.106  | RConfrm | 1364446498 |   1364446101 | target4off            |
+|       1139 | 1900 | 1,410.029908 | 0.192  | Confrm  | 1364446766 |           -1 | target5-on-nofollowup |
++------------+------+--------------+--------+---------+------------+--------------+-----------------------+
+10 rows in set (0.00 sec)
+
+mysql> notee

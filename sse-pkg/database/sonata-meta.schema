@@ -1,0 +1,190 @@
+################################################################################
+#
+# File:    sonata-meta.schema
+# Project: OpenSonATA
+# Authors: The OpenSonATA code is the result of many programmers
+#          over many years
+#
+# Copyright 2011 The SETI Institute
+#
+# OpenSonATA is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+# 
+# OpenSonATA is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with OpenSonATA.  If not, see<http://www.gnu.org/licenses/>.
+# 
+# Implementers of this code are requested to include the caption
+# "Licensed through SETI" with a link to setiQuest.org.
+# 
+# For alternate licensing arrangements, please contact
+# The SETI Institute at www.seti.org or setiquest.org. 
+#
+################################################################################
+
+-- ------------------------------------------------------------
+-- MySQL Database schema for the sonata_meta database
+-- sonata-meta.schema
+-- ------------------------------------------------------------
+
+-- -----------------------------------------------------------------------
+-- database schema version
+-- -----------------------------------------------------------------------
+
+drop table if exists DbVersion;
+
+create table DbVersion
+(
+  ts		timestamp not null,
+  revision	text
+);
+
+insert into DbVersion (revision) values('2013-11-27');
+
+-- -----------------------------------------------------------------------
+-- Target Catalog
+-- -----------------------------------------------------------------------
+
+drop table if exists TargetCat;
+
+create table TargetCat
+(
+  targetId      int not null primary key,
+  catalog       enum("none", "spacecraft", "habcat", "nearest", "exoplanets",
+                "galsurvey", "tycho2subset", "tycho2remainder",
+                "caldelay", "calphase", "radecgrid", "cygnusx3", "antisolar",
+		"quietsky", "explorer", "keplerHZ","exokepler","casagrid",
+                "perseusagrid","galcentergrid","testgrid","galcentergrid2") not null,
+  ra2000Hours   double not null default -99, 
+  dec2000Deg    double not null default -99, 
+  pmRaMasYr     double not null default 0,  -- proper motion, RA, milliArcsec per yr
+  pmDecMasYr    double not null default 0,  -- proper motion, Dec, milliArcsec per yr 
+  parallaxMas   double not null default 0.01,  -- parallax, milliArcsec 
+  spectralType  varchar(16) not null default "", 
+  bMag          double not null default -99,  -- blue filter (apparent) magnitude
+  vMag          double not null default -99,  -- visual filter (apparent) magnitude
+  aliases       tinytext not null ,   -- catalog numbers, star names, etc
+  primaryTargetId int not null default -1,
+  autoSchedule  enum("No", "Yes") not null,
+
+  KEY (catalog),
+  KEY (ra2000Hours),
+  KEY (dec2000Deg)
+);
+
+-- -----------------------------------------------------------------------
+-- Spacecraft
+-- -----------------------------------------------------------------------
+
+drop table if exists Spacecraft;
+
+create table Spacecraft
+(
+  targetId            int not null primary key,  -- same as in TargetCat
+  name                tinytext not null, 
+  xmit1FreqMhz        double not null default 0,
+  xmit2FreqMhz        double not null default 0,
+  autoDetect          enum("No", "Yes") not null,
+  ephemFilename       text not null 
+);       
+
+
+-- -----------------------------------------------------------------------
+-- Calibration Target Fluxes
+-- -----------------------------------------------------------------------
+
+drop table if exists CalTargetFlux;
+
+create table CalTargetFlux
+(
+  targetId      int not null default 0,  -- same id as in TargetCat
+  alias         tinytext not null, 
+  freqMhz       double not null default 0,
+  fluxJy        double not null default 0
+);       
+
+-- -----------------------------------------------------------------------
+-- BF Calibration Integration Times
+-- -----------------------------------------------------------------------
+
+drop table if exists BfCalPhaseTime;
+
+create table BfCalPhaseTime
+(
+  lowFreqMhz    double not null default 0,       
+  highFreqMhz   double not null default 0,
+  fluxJy        double not null default 0,
+  timeSecs      double not null default 0
+);       
+
+drop table if exists BfCalDelayTime;
+create table BfCalDelayTime like BfCalPhaseTime;
+
+-- -----------------------------------------------------------------------
+-- IfcParameters --
+-- MySQL analog of sse/IfcParameters.cpp
+-- note: ifc table names start with lowercase to match ui ifc commands
+-- IFC no longer exists, but runs in simulaltor mode because it is
+-- too complicated to remove the references.
+-- -----------------------------------------------------------------------
+drop table if exists ifc1Parameters;
+
+create table ifc1Parameters
+(
+  id          int unsigned auto_increment not null primary key,
+  ts          timestamp not null,
+  attnctrl    enum("user", "auto") not null,
+  attnl       int, -- attn left
+  attnr       int, -- attn right
+  ifsource    text, -- test | sky
+  hlen        int,  -- histogram length
+  varl        double, -- variance left
+  varr        double, -- variance right
+  vartol      double  -- variance tolerance
+);
+
+drop table if exists ifc2Parameters;
+create table ifc2Parameters like ifc1Parameters;
+
+drop table if exists ifc3Parameters;
+create table ifc3Parameters like ifc1Parameters;
+
+-- -----------------------------------------------------------------------
+-- Baseline[Warning/Error]Limits 
+-- -----------------------------------------------------------------------
+drop table if exists BaselineWarningLimits;
+
+create table BaselineWarningLimits
+(
+  id             	int unsigned auto_increment not null primary key,
+  ts             	timestamp not null,
+  meanUpperBound	double,
+  meanLowerBound	double,	
+  stdDevPercent		double,
+  maxRange		double
+);
+
+drop table if exists BaselineErrorLimits;
+create table BaselineErrorLimits like BaselineWarningLimits;
+
+
+-- -----------------------------------------------------------------------
+-- Sessions 
+-- -----------------------------------------------------------------------
+drop table if exists Sessions;
+
+create table Sessions
+(
+  id             	int unsigned auto_increment not null primary key,
+  start_ts             	timestamp not null,
+  end_ts             	timestamp,
+  description           tinytext not null,
+  comment               tinytext not null
+);
+

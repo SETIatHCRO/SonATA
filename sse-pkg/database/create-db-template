@@ -1,0 +1,109 @@
+#!/bin/sh
+################################################################################
+#
+# File:    create-db-kepler8ghz
+# Project: OpenSonATA
+# Authors: The OpenSonATA code is the result of many programmers
+#          over many years
+#
+# Copyright 2011 The SETI Institute
+#
+# OpenSonATA is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+# 
+# OpenSonATA is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with OpenSonATA.  If not, see<http://www.gnu.org/licenses/>.
+# 
+# Implementers of this code are requested to include the caption
+# "Licensed through SETI" with a link to setiQuest.org.
+# 
+# For alternate licensing arrangements, please contact
+# The SETI Institute at www.seti.org or setiquest.org. 
+#
+################################################################################
+
+
+# Create seeker database, and populate tables.
+
+# Set these as needed:
+dbhost="localhost"
+#dbname="sonata201510"
+dbname="sonata201607"
+
+if [ "$dbhost" = "" ]
+then
+    echo "Must set dbhost in script"
+    exit 1
+fi
+
+if [ "$dbname" = "" ]
+then
+    echo "Must set dbname in script"
+    exit 1
+fi
+
+sourceFile()
+{
+    # Source the file, showing any warnings, but
+    # ignoring any expected "note" messages (e.g., Unknown table)
+
+    filename=$1
+    mysql -h ${dbhost} ${dbname} --show-warnings -e \
+      "set sql_notes=0; source ${filename};"
+}
+
+mysqladmin -h ${dbhost} create ${dbname}
+
+echo "schema"
+sourceFile db-template-notargets.schema
+
+#sudo rm /data/mysql/${dbname}/TargetCat.MYI;
+#sudo ln /data/mysql/targets/TargetCat.MYI /data/mysql/${dbname}/TargetCat.MYI;
+#sudo rm /data/mysql/${dbname}/TargetCat.MYD;
+#sudo ln /data/mysql/targets/TargetCat.MYD /data/mysql/${dbname}/TargetCat.MYD;
+#sudo rm /data/mysql/${dbname}/TargetCat.frm;
+#sudo ln /data/mysql/targets/TargetCat.frm /data/mysql/${dbname}/TargetCat.frm;
+
+#sudo rm /data/mysql/${dbname}/Spacecraft.MYI;
+#sudo ln /data/mysql/targets/Spacecraft.MYI /data/mysql/${dbname}/Spacecraft.MYI;
+#sudo rm /data/mysql/${dbname}/Spacecraft.MYD;
+#sudo ln /data/mysql/targets/Spacecraft.MYD /data/mysql/${dbname}/Spacecraft.MYD;
+#sudo rm /data/mysql/${dbname}/Spacecraft.frm;
+#sudo ln /data/mysql/targets/Spacecraft.frm /data/mysql/${dbname}/Spacecraft.frm;
+
+#sudo rm /data/mysql/${dbname}/BfCalDelayTime.MYI;
+#sudo ln /data/mysql/targets/BfCalDelayTime.MYI /data/mysql/${dbname}/BfCalDelayTime.MYI;
+#sudo rm /data/mysql/${dbname}/BfCalDelayTime.MYD;
+#sudo ln /data/mysql/targets/BfCalDelayTime.MYD /data/mysql/${dbname}/BfCalDelayTime.MYD;
+#sudo rm /data/mysql/${dbname}/BfCalDelayTime.frm;
+#sudo ln /data/mysql/targets/BfCalDelayTime.frm /data/mysql/${dbname}/BfCalDelayTime.frm;
+
+#sudo rm /data/mysql/${dbname}/BfCalPhaseTime.MYI;
+#sudo ln /data/mysql/targets/BfCalPhaseTime.MYI /data/mysql/${dbname}/BfCalPhaseTime.MYI;
+#sudo rm /data/mysql/${dbname}/BfCalPhaseTime.MYD;
+#sudo ln /data/mysql/targets/BfCalPhaseTime.MYD /data/mysql/${dbname}/BfCalPhaseTime.MYD;
+#sudo rm /data/mysql/${dbname}/BfCalPhaseTime.frm;
+#sudo ln /data/mysql/targets/BfCalPhaseTime.frm /data/mysql/${dbname}/BfCalPhaseTime.frm;
+
+#sudo rm /data/mysql/${dbname}/CalTargetFlux.MYI;
+#sudo ln /data/mysql/targets/CalTargetFlux.MYI /data/mysql/${dbname}/CalTargetFlux.MYI;
+#sudo rm /data/mysql/${dbname}/CalTargetFlux.MYD;
+#sudo ln /data/mysql/targets/CalTargetFlux.MYD /data/mysql/${dbname}/CalTargetFlux.MYD;
+#sudo rm /data/mysql/${dbname}/CalTargetFlux.frm;
+#sudo ln /data/mysql/targets/CalTargetFlux.frm /data/mysql/${dbname}/CalTargetFlux.frm;
+
+echo "grant all on ${dbname}.* to sonata@'sse100.csr.seti.org'"
+echo "grant all on ${dbname}.* to sonata@'sse100.csr.seti.org'" | mysql;
+echo "grant all on ${dbname}.* to ''@'sse100.csr.seti.org'";
+echo "grant all on ${dbname}.* to ''@'sse100.csr.seti.org'" | mysql;
+echo "grant all on ${dbname}.* to ''@localhost";
+echo "grant all on ${dbname}.* to ''@localhost" | mysql;
+echo "grant all on ${dbname}.* to sonata@localhost";
+echo "grant all on ${dbname}.* to sonata@localhost" | mysql;

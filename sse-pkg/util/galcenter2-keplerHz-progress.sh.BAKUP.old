@@ -1,0 +1,43 @@
+#!/bin/sh
+
+PATH="/usr/local/bin:/usr/bin:/usr/local/mysql/bin:/bin"
+export PATH
+
+MYSQL_ROOT=/usr/local/mysql
+LD_LIBRARY_PATH="${MYSQL_ROOT}/lib:/usr/local/lib"
+export LD_LIBRARY_PATH
+
+dateUtc=`date -u`
+echo ""
+echo "Current Time: $dateUtc"
+echo ""
+echo "Galactic Center Survey Progress"
+echo "17 grid points"
+#echo "Frequency Range 6767-6967 MHz"
+#echo "Frequency Range 8840-8920 MHz"
+echo "Frequency Range 8760-8840 MHz"
+mysql -t galcenter2 << EOF
+select distinct ActivityUnits.targetId, format(sum(dxHighFreqMhz - dxLowFreqMhz),1) as TotalMHz, format(min(dxLowFreqMhz),1) as MinFreqMHz, format(max(dxHighFreqMhz),1) as MaxFreqMHz  from ActivityUnits, TargetCat, Activities  where ActivityUnits.targetId = TargetCat.targetId and ActivityUnits.activityId = Activities.id and ActivityUnits.validObservation = 'Yes' and Activities.type = 'target' and dxLowFreqMhz > 8759.9 and dxHighFreqMhz < 8839.8 group by ActivityUnits.targetId;
+EOF
+mysql -t galcenter2 << EOF
+create temporary Table GalSummary 
+      select distinct ActivityUnits.targetId as Target, format(sum(dxHighFreqMhz - dxLowFreqMhz),1) as TotalMHz, format(min(dxLowFreqMhz),1) as MinFreqMHz, format(max(dxHighFreqMhz),1) as MaxFreqMHz  from ActivityUnits, TargetCat, Activities  where ActivityUnits.targetId = TargetCat.targetId and ActivityUnits.activityId = Activities.id and ActivityUnits.validObservation = 'Yes' and Activities.type = 'target' and dxLowFreqMhz > 8759.9 and dxHighFreqMhz < 8839.8 group by ActivityUnits.targetId;
+select  count(distinct Target ) as CompletedGridPoints from GalSummary where MinFreqMHz  > '8,759.0' and MinFreqMHz < '8,760.5' and MaxFreqMHz > '8,839.3' and MaxFreqMHz < '8,840.4';
+EOF
+echo ""
+echo "Kepler Habitable Zone Progress"
+echo "54 Target Stars"
+#echo "Frequency Range 6767-6967 MHz"
+#echo "Frequency Range 6967-7167 MHz"
+echo "Frequency Range 8760-8840 MHz"
+#mysql -t kepler6867mhz << EOF
+#mysql -t kepler7067mhz << EOF
+mysql -t kepler8ghz << EOF
+select ActivityUnits.targetId, format(sum(dxHighFreqMhz - dxLowFreqMhz),1) as TotalMHz, format(min(dxLowFreqMhz),1) as MinFreqMHz, format(max(dxHighFreqMhz),1) as MaxFreqMHz  from ActivityUnits, TargetCat, Activities  where ActivityUnits.targetId = TargetCat.targetId and ActivityUnits.activityId = Activities.id and ActivityUnits.validObservation = 'Yes' and dxLowFreqMhz  > 8759.0 and dxHighFreqMhz < 8840.5 and Activities.type = 'target' and TargetCat.catalog = 'keplerHz'  group by ActivityUnits.targetId;
+EOF
+mysql -t kepler8ghz << EOF
+create temporary table KepSummary
+select ActivityUnits.targetId as Target, format(sum(dxHighFreqMhz - dxLowFreqMhz),1) as TotalMHz, format(min(dxLowFreqMhz),1) as MinFreqMHz, format(max(dxHighFreqMhz),1) as MaxFreqMHz  from ActivityUnits, TargetCat, Activities  where ActivityUnits.targetId = TargetCat.targetId and ActivityUnits.activityId = Activities.id and ActivityUnits.validObservation = 'Yes' and dxLowFreqMhz  > 8759.0 and dxHighFreqMhz < 8840.5 and Activities.type = 'target' and TargetCat.catalog = 'keplerHz'  group by ActivityUnits.targetId;
+
+select  count(distinct Target ) as CompletedGridPoints from KepSummary where MinFreqMHz  > '8,759.0' and MinFreqMHz < '8,760.5' and MaxFreqMHz > '8,839.3' and MaxFreqMHz < '8,840.4';
+EOF
