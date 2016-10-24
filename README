@@ -1,4 +1,9 @@
 Welcome to the SonATA Open Source Project
 
-Visit http://setiquest.org for project details.
-or view doc/index.html
+The minimum requirements for building and running the SonATA software:
+
+1. OpenSUSE Linux 11.3
+2. At least 2 64-bit processors with sse3 capability
+3. At least 4GB RAM
+
+NOTE: An effort is being made to conver to the latest Ubuntu. Stay tuned.
