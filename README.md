@@ -30,16 +30,16 @@ NOTE: It is important to follow ALL the steps exactly. If you skip anything it i
 
 Retrieve some extra libraries required for SonATA:
 
-  cd ~/SonATA/scripts
-  ./get_packages
+* cd ~/SonATA/scripts
+* ./get_packages
 
 Download sample data from an observation of Voyager. This will be used to test the build once you have built it.
 
-  mkdir ~/sonata_install
-  mkdir ~/sonata_install/data
-  cd ~/sonata_install/data
-  wget http://setiquest.org/sonata_files/vger-xpol-2010-07-14-406.pktdata.tar.Z
-  tar -xvzf vger-xpol-2010-07-14-406.pktdata.tar.Z
+* mkdir ~/sonata_install
+* mkdir ~/sonata_install/data
+* cd ~/sonata_install/data
+* wget http://setiquest.org/sonata_files/vger-xpol-2010-07-14-406.pktdata.tar.Z
+* tar -xvzf vger-xpol-2010-07-14-406.pktdata.tar.Z
 
 ##Prepare the account
 
@@ -48,10 +48,10 @@ NOTE: A common question we get is "Why do I have to set up sudo access"? The cha
 Add your user into the sudoers file so you have sudo access without having to enter a password. See the faq page for details on why we do this.
 
 
-  sudo vi /etc/sudoers
-  Under the line "root    ALL=(ALL) ALL" add the following line:
+* sudo vi /etc/sudoers
+* Under the line "root    ALL=(ALL) ALL" add the following line:
 
-  usrnm ALL=(ALL) NOPASSWD: ALL
+* usrnm ALL=(ALL) NOPASSWD: ALL
 
 
 NOTE: A common question is "Why do I have to set up ssh? I am running it all on my local computer."  The answer is related to the sudo NOTE above. The channelizer and DX must be run as root, and to do this the SonATA software executes them using sudo and ssh. If you do not set up ssh correctly, SonATA will not run.
@@ -60,17 +60,17 @@ Create an ssh key so you can ssh into the sonata account from the user account w
 
 If sshd is not running (typically you need to restart ssh daemon each time you reboot your machine):
 
-  sudo /etc/init.d/sshd start
+* sudo /etc/init.d/sshd start
 
   Create a public/private key:
 
-    cd ~/.ssh
-    ssh-keygen (answer all with the enter key)
-    cp ./id_rsa.pub authorized_keys
-    Log into yourself once to set the key usage to be automatic (replace hostname with yours, i.e. "linux-73xk"):
+* cd ~/.ssh
+* ssh-keygen (answer all with the enter key)
+* cp ./id_rsa.pub authorized_keys
+* Log into yourself once to set the key usage to be automatic (replace hostname with yours, i.e. "linux-73xk"):
 
-    ssh usrnm@hostname
-    exit
+* ssh usrnm@hostname
+* exit
 
 Important Note! If you can not configure the ssh keys properly to allow login without a password, there may be a problem with your sshd configuration. Please view the file /etc/ssh/sshd_config. Find the line defining the variable AuthorizedKeysFile. We have found instances where this value is defined incorrectly, even in fresh OpenSUSE installs.
 
@@ -105,10 +105,10 @@ OpenJDK 64-Bit Server VM (build 14.0-b16, mixed mode)
 
 This means you need to replace the java with the Sun Java. This is how you do it:
 
-  sudo zypper ar http://download.opensuse.org/distribution/11.3/repo/non-oss non-oss
-  sudo zypper remove java
-  sudo zypper install java-sun
-  sudo zypper install java-devel-sun
+* sudo zypper ar http://download.opensuse.org/distribution/11.3/repo/non-oss non-oss
+* sudo zypper remove java
+* sudo zypper install java-sun
+* sudo zypper install java-devel-sun
 
 
 Prepare several files
@@ -130,38 +130,38 @@ The trick is obtaining version 4.5.3. The RPMs can be downloaded from http://dow
 
 ##Build the SonATA software
 
-  cd ~/SonATA/tclreadline
-  ./reconfig --with-tcl=/usr/lib64 --with-tlib-library="-lncurses" --prefix=$HOME/sonata_install --with-readline-includes=/usr/include/readline
-  make install
+* cd ~/SonATA/tclreadline
+* ./reconfig --with-tcl=/usr/lib64 --with-tlib-library="-lncurses" --prefix=$HOME/sonata_install --with-readline-includes=/usr/include/readline
+* make install
 
-  cd ~/SonATA/CppUnit
-  ./reconfig
-  make
-  sudo make install
+* cd ~/SonATA/CppUnit
+* ./reconfig
+* make
+* sudo make install
 
-  cd ~/SonATA/sse-pkg
-  ./reconfig
-  make
-  make install
+* cd ~/SonATA/sse-pkg
+* ./reconfig
+* make
+* make install
 
-  cd ~/SonATA/sig-pkg
-  ./reconfig
-  make
-  make install
+* cd ~/SonATA/sig-pkg
+* ./reconfig
+* make
+* make install
 
-  cd ~/SonATA/scripts
-  ./reconfig
-  make
-  make install
+* cd ~/SonATA/scripts
+* ./reconfig
+* make
+* make install
 
 In your .bashrc add these and resource your environment (restart the terminal after saving changes to the .bashrc):
 
 
-  ACE_ROOT=$HOME/SonATA/packages/ACE_wrappers
-  PACKAGES_PATH=$HOME/SonATA/packages
-  export LD_LIBRARY_PATH=$ACE_ROOT/ace:$ACE_ROOT/lib:$PACKAGES_PATH/lib:$LD_LIBRARY_PATH
-  export PATH=.:$HOME/sonata_install/bin:$PACKAGES_PATH/bin:$PATH
-  ulimit -s unlimited
+* ACE_ROOT=$HOME/SonATA/packages/ACE_wrappers
+* PACKAGES_PATH=$HOME/SonATA/packages
+* export LD_LIBRARY_PATH=$ACE_ROOT/ace:$ACE_ROOT/lib:$PACKAGES_PATH/lib:$LD_LIBRARY_PATH
+* export PATH=.:$HOME/sonata_install/bin:$PACKAGES_PATH/bin:$PATH
+* ulimit -s unlimited
 
 Note: If you are not using the bash shell, edit your shell script with the proper syntax.
 
