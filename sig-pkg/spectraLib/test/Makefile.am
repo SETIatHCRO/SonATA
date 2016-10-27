@@ -67,7 +67,7 @@ test_DEPENDENCIES = $(LIB_DEPENDS)
 
 SPECTRAINCLUDE = ../include
 
-INCLUDES= -I . -I$(SPECTRAINCLUDE) \
+AM_CPPFLAGS= -I . -I$(SPECTRAINCLUDE) \
 	-I$(top_srcdir)/include \
 	-I$(top_srcdir)/lib \
 	-I$(PKT_INCDIR) \
