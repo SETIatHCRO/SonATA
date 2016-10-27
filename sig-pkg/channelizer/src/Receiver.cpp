@@ -34,6 +34,7 @@
 // $Header: /home/cvs/nss/sonata-pkg/channelizer/src/Receiver.cpp,v 1.26 2009/02/13 03:02:29 kes Exp $
 
 #include "Receiver.h"
+#include <unistd.h>
 //JR - June 03. 2014 - Added extra debugging via LogError...
 //#include "Log.h"
 
