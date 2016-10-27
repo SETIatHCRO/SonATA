@@ -37,6 +37,7 @@
 #include "Args.h"
 //JR - June 03. 2014 - Added extra debugging, need LogError() definition
 #include "Log.h"
+#include <unistd.h>
 
 using std::norm;
 
