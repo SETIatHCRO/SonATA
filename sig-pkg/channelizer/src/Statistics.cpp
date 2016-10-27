@@ -34,6 +34,7 @@
 #include <iostream>
 #include <sseChannelizerInterface.h>
 #include "Statistics.h"
+#include <unistd.h>
 
 using std::cout;
 using std::endl;
