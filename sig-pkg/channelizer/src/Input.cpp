@@ -36,6 +36,7 @@
 
 #include "Input.h"
 #include "Log.h"
+#include <unistd.h>
 
 namespace chan {
 
