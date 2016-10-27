@@ -65,7 +65,7 @@ test_DEPENDENCIES = $(LIB_DEPENDS)
 
 DFBINCLUDE = ../include
 
-INCLUDES= -I . -I$(DFBINCLUDE) -I$(PKT_INCDIR) \
+AM_CPPFLAGS= -I . -I$(DFBINCLUDE) -I$(PKT_INCDIR) \
 	-I$(top_srcdir)/include \
 	-I$(top_srcdir)/lib
 
