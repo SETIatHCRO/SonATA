@@ -38,6 +38,7 @@
 #include "Args.h"
 #include "Lock.h"
 #include "ChVersion.h"
+#include <getopt.h>
 
 using std::cout;
 using std::endl;
