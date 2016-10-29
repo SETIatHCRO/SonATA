@@ -28,13 +28,20 @@
 #
 ################################################################################
 
-AC_INIT(./Makefile.am)
-AM_CONFIG_HEADER(config.h)
+AC_PREREQ([2.69])
+
+AC_INIT(SonATA,0,01)
+AC_CONFIG_HEADERS(config.h)
 AC_PREFIX_DEFAULT(${HOME}/sonata_install)
+
+AC_CONFIG_SRCDIR(include/cycle.h)
+AM_INIT_AUTOMAKE
+
+
 #AC_PREREQ(2.10)dnl               dnl Minimum Autoconf version required.
+
 AC_ARG_PROGRAM
-AM_MAINTAINER_MODE
-AM_INIT_AUTOMAKE(SonATA, 0.1)
+#AM_MAINTAINER_MODE
 
 AC_SUBST(CXXFLAGS,"-Wall -Woverloaded-virtual -D_REENTRANT $(DEBUGFLAGS) \
 	-march=native -msse3 -pthread -fno-strict-aliasing")
@@ -60,8 +67,8 @@ AC_PROG_CC_STDC
 AC_PROG_CPP
 AC_PROG_CXX
 AC_PROG_CXXCPP
-AM_PROG_AS
-AM_C_PROTOTYPES
+#AM_PROG_AS
+#AM_C_PROTOTYPES
 
 dnl Checks for header files.
 AC_HEADER_STDC
@@ -80,9 +87,9 @@ dnl checks for endian-ness
 AC_C_BIGENDIAN
 
 dnl initialize libtool
-AC_LIBTOOL_DLOPEN
-AC_DISABLE_SHARED
-AC_PROG_LIBTOOL
+#AC_LIBTOOL_DLOPEN
+#AC_DISABLE_SHARED
+#AC_PROG_LIBTOOL
 AC_SUBST(LIBTOOL_DEPS)
 AC_OUTPUT(Makefile
 	ATApackets/Makefile

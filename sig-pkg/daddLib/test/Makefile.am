@@ -63,7 +63,7 @@ SIGPROC_INCDIR = $(SIGPROC_DIR)/include
 
 SSE_INCDIR = $(top_srcdir)/../../sse-pkg/include
 
-INCLUDES= -I . -I$(DADDINCLUDE) \
+AM_CPPFLAGS= -I . -I$(DADDINCLUDE) \
 	-I$(top_srcdir)/include -I$(SIGPROC_INCDIR) \
 	-I$(top_srcdir)/lib -I$(SSE_INCDIR)
 	

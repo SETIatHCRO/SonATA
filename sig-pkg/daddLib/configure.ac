@@ -2,11 +2,15 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.69])
-AC_INIT([FULL-PACKAGE-NAME], [VERSION], [BUG-REPORT-ADDRESS])
-AC_CONFIG_SRCDIR([src/Print.cpp])
+
+# New version of autoconf
+AC_INIT(pfb, 0.01)
+AC_CONFIG_SRCDIR(include/Dadd.h)
 AC_CONFIG_HEADERS([config.h])
+AM_INIT_AUTOMAKE
 
 # Checks for programs.
+AC_PROG_RANLIB
 AC_PROG_CXX
 AC_PROG_CC
 
@@ -37,6 +41,5 @@ AC_CHECK_FUNCS([memset sqrt])
 
 AC_CONFIG_FILES([Makefile
                  include/Makefile
-                 src/Makefile
-                 test/Makefile])
+                 src/Makefile])
 AC_OUTPUT
