@@ -34,6 +34,7 @@
 // $Header: /home/cvs/nss/sonata-pkg/channelizer/src/Worker.cpp,v 1.28 2009/02/13 18:11:55 kes Exp $
 //
 
+#include <unistd.h>
 #include "Worker.h"
 #include "Args.h"
 
