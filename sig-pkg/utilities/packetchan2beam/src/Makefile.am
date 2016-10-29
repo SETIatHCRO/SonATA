@@ -72,7 +72,7 @@ packetchan2beam_DEPENDENCIES = $(LIB_DEPENDS)
 
 PACKETSQIMPORT_INCLUDE = $(top_srcdir)/include
 
-INCLUDES= -I$(PACKETSQIMPORT_INCLUDE) -I$(PKT_HDR_INCDIR) \
+AM_CPPFLAGS= -I$(PACKETSQIMPORT_INCLUDE) -I$(PKT_HDR_INCDIR) \
 	-I$(top_srcdir)/include \
 	-I$(top_srcdir)/lib
 

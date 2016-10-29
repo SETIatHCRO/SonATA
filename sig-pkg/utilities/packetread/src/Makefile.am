@@ -85,7 +85,7 @@ packetread_DEPENDENCIES = $(LIB_DEPENDS)
 
 packetread_INCLUDE = $(top_srcdir)/include
 
-INCLUDES= -I$(packetread_INCLUDE) -I$(PKT_HDR_INCDIR) -I$(GAUSS_INCDIR) \
+AM_CPPFLAGS= -I$(packetread_INCLUDE) -I$(PKT_HDR_INCDIR) -I$(GAUSS_INCDIR) \
 	-I$(SONATA_INCDIR) -I$(SIGPROC_INCDIR) \
 	-I$(SSE_INCDIR) -I$(SSE_INTERFACE_INCDIR) \
 	-I$(SSE_DX_INTERFACE_INCDIR) -I$(top_srcdir)/include \

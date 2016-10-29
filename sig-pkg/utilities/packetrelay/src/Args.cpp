@@ -40,6 +40,7 @@
 #include "BeamPacket.h"
 #include "Lock.h"
 #include "PrVersion.h"
+#include <getopt.h>
 
 using std::cout;
 using std::endl;

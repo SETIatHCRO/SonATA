@@ -35,6 +35,7 @@
 //
 #include "PsErr.h"
 #include "Sender.h"
+#include <unistd.h>
 
 namespace sonata_packetsend {
 

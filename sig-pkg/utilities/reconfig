@@ -63,3 +63,5 @@ cd packetchan2beam; ./reconfig; cd ..
 
 echo "------- reconfiguring packetsqimport -------"
 cd packetsqimport; ./reconfig; cd ..
+
+./configure --prefix=${HOME}
