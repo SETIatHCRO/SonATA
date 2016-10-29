@@ -36,6 +36,7 @@
 #include "DxErr.h"
 #include "Log.h"
 #include "InputTask.h"
+#include <unistd.h>
 
 namespace dx {
 

@@ -42,6 +42,7 @@
 #include "PulseSignal.h"
 #include "SignalClassifier.h"
 #include "Statistics.h"
+#include <unistd.h>
 
 namespace dx {
 

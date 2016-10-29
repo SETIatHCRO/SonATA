@@ -111,13 +111,13 @@ test_DEPENDENCIES = $(LIB_DEPENDS)
 DX_INCLUDE = $(top_srcdir)/include
 CPPUNIT_ROOT=/usr/local/CppUnit
 
-INCLUDES= -I$(DX_INCDIR) -I$(DX_SRCINCDIR) -I$(SONATA_INCDIR) \
+AM_CPPFLAGS= -I$(DX_INCDIR) -I$(DX_SRCINCDIR) -I$(SONATA_INCDIR) \
 	-I$(PKT_INCDIR) -I$(SIGPROC_INCDIR) \
 	-I$(SPECTRA_INCDIR) -I$(DFB_INCDIR) -I$(DADD_INCDIR) -I$(GAUSS_INCDIR) \
 	-I$(SSE_INCDIR) -I$(SSE_INTERFACE_INCDIR) -I$(SSE_DX_INTERFACE_INCDIR) \
 	-I$(SSE_UTIL_DIR) \
 	-I$(CPPUNIT_ROOT)/include -I$(top_srcdir)/include \
-	-I/usr/include/tcl8.3 -I/usr/include/tcl8.2 \
+	-I/usr/include/tcl8.6 \
 	-I$(top_srcdir)/lib
 
 TEST_LIBS = \

@@ -38,6 +38,7 @@
 #include "System.h"
 #include "Args.h"
 #include "Lock.h"
+#include <getopt.h>
 
 using std::cout;
 using std::endl;

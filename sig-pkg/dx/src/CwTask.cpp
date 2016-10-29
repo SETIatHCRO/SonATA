@@ -43,6 +43,7 @@
 #include "CwTask.h"
 #include "BandReport.h"
 #include "ClusterHit.h"
+#include <unistd.h>
 
 using std::cout;
 using std::endl;

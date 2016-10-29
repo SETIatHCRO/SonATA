@@ -35,8 +35,7 @@ AUTOMAKE_OPTIONS = foreign
 SUBDIRS = \
 	include \
 	lib \
-	src \
-	test
+	src
 
 noinst_SCRIPTS = reconfig
 EXTRA_DIST = reconfig configure.in

@@ -40,6 +40,7 @@
 #include "Log.h"
 #include "ReceiverTask.h"
 #include "Timer.h"
+#include <unistd.h>
 
 namespace dx {
 

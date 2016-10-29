@@ -38,6 +38,7 @@
 #include "DxErr.h"
 #include "System.h"
 #include "PulseTask.h"
+#include <unistd.h>
 
 using std::cout;
 using std::endl;
