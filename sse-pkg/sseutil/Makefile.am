@@ -117,7 +117,7 @@ testAngle_LDADD = -L$(CPPUNIT_ROOT)/lib -lcutextui -lcu
 # It is required to be usable without ACE!
 # *****************************************************
 
-INCLUDES=  -I$(SSE_INC_DIR) -I$(CPPUNIT_ROOT)/include
+AM_CPPFLAGS=  -I$(SSE_INC_DIR) -I$(CPPUNIT_ROOT)/include
 LIBLIST = -L. $(lib_LIBRARIES)  -lnsl -lpthread
 
 LDADD = $(LIBLIST)

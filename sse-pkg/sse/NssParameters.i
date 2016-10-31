@@ -151,8 +151,7 @@ public:
 extern IfcImmedCmds ifcGlobal;
 
 
-class IfcParameters
-{
+class IfcParameters {
 
 public:
 
@@ -166,6 +165,7 @@ public:
    %extend {
 
       const char * default() {return self->setDefault();}
+
       bool isvalid() {return(self->isValid());}
 
       // help is the same for all ifcXparams, so just use the first one

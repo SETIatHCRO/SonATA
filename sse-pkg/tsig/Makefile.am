@@ -46,9 +46,9 @@ EXTRA_DIST = $(bin_SCRIPTS) TestSig.i unitTest.exp unitTest.cfg
 LIB_DEPENDS = $(SSE_INTERFACE_LIB) $(GPIB_INTERFACE_LIB) \
 	$(SSEUTIL_LIB)
 
-INCLUDES= -I$(SSE_INC_DIR) -I$(SSE_INTERFACE_INC_DIR) \
+AM_CPPFLAGS= -I$(SSE_INC_DIR) -I$(SSE_INTERFACE_INC_DIR) \
 	-I$(SSEUTIL_INC_DIR) \
-        -I/usr/include/tcl
+	-I$(TCL_INC_DIR) \
 	-I$(GPIB_INTERFACE_INC_DIR) @GPIB_INCLUDES@ 
 
 # build a version of tclsh that has all the libraries

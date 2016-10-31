@@ -32,6 +32,10 @@
 #ifndef SignalArchiver_H
 #define SignalArchiver_H
 
+#include "/usr/local/ACE_wrappers/ace/Recursive_Thread_Mutex.h"
+#include "/usr/local/ACE_wrappers/ace/Guard_T.h"
+#include <ace/OS.h>
+#include "ace/Synch.h"
 #include "sseDxInterface.h"
 #include <fstream>
 #include <string>

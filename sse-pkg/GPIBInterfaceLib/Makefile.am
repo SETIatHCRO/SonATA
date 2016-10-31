@@ -52,4 +52,4 @@ libGPIBInterface_a_SOURCES = \
 # public headers to include in 'make install' target
 include_HEADERS = $(PUBLIC_HEADER_FILES)
 
-INCLUDES= -I$(SSE_INC_DIR) -I$(GPIB_INTERFACE_INC_DIR) @GPIB_INCLUDES@
+AM_CPPFLAGS= -I$(SSE_INC_DIR) -I$(GPIB_INTERFACE_INC_DIR) @GPIB_INCLUDES@

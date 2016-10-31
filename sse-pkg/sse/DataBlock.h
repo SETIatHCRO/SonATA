@@ -36,7 +36,10 @@
 #ifndef DATABLOCK_H
 #define DATABLOCK_H
 
+//#include "/usr/local/ACE_wrappers/ace/Lock_Adapter_T.h"
 #include "mld.h"
+#include <ace/OS.h>
+#include <ace/Lock_Adapter_T.h>
 
 template<class UnitOfWork> 
 class Data_Block : public ACE_Data_Block

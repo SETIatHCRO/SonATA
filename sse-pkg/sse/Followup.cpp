@@ -40,6 +40,7 @@
 #include "Assert.h"
 #include <sstream>
 #include <map>
+#include <ace/Thread_Manager.h>
 
 using namespace std;
 

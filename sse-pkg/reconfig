@@ -72,21 +72,26 @@ done
 
 # reconfigure the package: 
 
+echo " \n";
 echo "libtoolize..."
 libtoolize --force --automake 
 
+echo " \n";
 echo "aclocal..."
 aclocal -I m4 
 
+echo " \n";
 echo "autoheader..."
 autoheader 
 
+echo " \n";
 echo "autoconf..."
 autoconf 
 
+echo " \n";
 echo "automake..."
 automake --add-missing --force-missing
 
 echo "configure..."
-./configure --enable-maintainer-mode ${options}
+env CPPFLAGS=-fpermissive ./configure  ${options}
 

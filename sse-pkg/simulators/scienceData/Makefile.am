@@ -55,7 +55,7 @@ extractSonATACompampsSubchannel_DEPENDENCIES = $(LIB_DEPENDS)
 
 SSEINCLUDE = $(top_srcdir)/include
 
-INCLUDES= -I$(ACE_ROOT) -I$(SSEUTIL_INC_DIR) \
+AM_CPPFLAGS= -I$(ACE_ROOT) -I$(SSEUTIL_INC_DIR) \
   -I$(SSE_INC_DIR) -I$(CPPUNIT_ROOT)/include
 
 LDADD = -L$(ACE_ROOT)/ace -lACE \

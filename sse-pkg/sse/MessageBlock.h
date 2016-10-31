@@ -84,13 +84,21 @@ Message_Block<UnitOfWork>::Message_Block(UnitOfWork * data)
     // (ACE_Message_Block::init_i method) for an example of
     // how the library allocates the ACE_Data_Block. 
 
+//JR - Oct 26, 2016 - ACE_static_cast is detricated, use c++ cast
     ACE_Data_Block *db = 0;
+    ACE_NEW_MALLOC (
+        db,
+        (Data_Block<UnitOfWork> *)ACE_Allocator::instance()->malloc (sizeof (Data_Block<UnitOfWork>)),
+        Data_Block<UnitOfWork>(data));
+        
+/*
     ACE_NEW_MALLOC (
 	db,
 	ACE_static_cast(
 	    Data_Block<UnitOfWork> *,
 	    ACE_Allocator::instance()->malloc (sizeof (Data_Block<UnitOfWork>))),
 	Data_Block<UnitOfWork>(data));
+*/
 
     // set the new data block in the base class
     data_block(db);

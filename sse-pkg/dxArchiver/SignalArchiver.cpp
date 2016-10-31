@@ -1,5 +1,5 @@
 /*******************************************************************************
-
+A
  File:    SignalArchiver.cpp
  Project: OpenSonATA
  Authors: The OpenSonATA code is the result of many programmers

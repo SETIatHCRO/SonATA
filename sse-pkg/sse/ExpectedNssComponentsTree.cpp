@@ -541,10 +541,10 @@ addComponent(
       }
 
       // make sure there isn't already a child by this name on any other component
-      vector<ComponentInfo>::iterator i;
-      for (i = components_.begin(); i < components_.end(); ++i)
+      vector<ComponentInfo>::iterator j;
+      for (j = components_.begin(); j < components_.end(); ++j)
       { 
-	 ComponentInfo & ci = *i;
+	 ComponentInfo & ci = *j;
 
 	 if (! verifyChildNotOnChildList(ci, childName, linenum, line))
 	 {

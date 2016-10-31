@@ -108,7 +108,7 @@ scephm: scephm.f
 # It is required to be usable without ACE!
 # *****************************************************
 
-INCLUDES= -I$(CPPUNIT_ROOT)/include 
+AM_CPPFLAGS= -I$(CPPUNIT_ROOT)/include 
 
 LIBLIST = -L. -ldoppler
 

@@ -32,6 +32,8 @@
 #ifndef ActUnitListMutexWrapper_H
 #define ActUnitListMutexWrapper_H
 
+#include "/usr/local/ACE_wrappers/ace/Recursive_Thread_Mutex.h"
+#include "/usr/local/ACE_wrappers/ace/Guard_T.h"
 #include "ace/Synch.h"
 #include "ActUnitList.h"
 

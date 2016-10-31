@@ -32,6 +32,8 @@
 #ifndef ObserveActivityStatus_H
 #define ObserveActivityStatus_H
 
+#include "/usr/local/ACE_wrappers/ace/Recursive_Thread_Mutex.h"
+#include "/usr/local/ACE_wrappers/ace/Guard_T.h"
 #include <ace/Synch.h>
 #include <string>
 

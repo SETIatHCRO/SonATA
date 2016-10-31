@@ -92,7 +92,7 @@ LIB_DEPENDS = \
 testUnitSse_DEPENDENCIES = $(LIB_DEPENDS)
 seeker_DEPENDENCIES = $(LIB_DEPENDS)
 
-INCLUDES= \
+AM_CPPFLAGS= \
 	-I$(ACE_ROOT) -I$(SSECOMMUTIL_INC_DIR)  -I$(SSEUTIL_INC_DIR) \
          -I$(SSE_INTERFACE_INC_DIR) \
          -I$(SSE_TSCOPE_INTERFACE_INC_DIR) \
@@ -101,6 +101,7 @@ INCLUDES= \
          -I$(SSE_CHANNELIZER_INTERFACE_INC_DIR) \
 	 -I$(CPPUNIT_ROOT)/include -I$(top_srcdir)/include \
 	 -I$(DOPPLER_INC_DIR) \
+	 -I$(TCL_INC_DIR) \
          -I$(MYSQL_ROOT)/include \
 	 -I/usr/include/mysql
 
@@ -115,7 +116,7 @@ SSE_LIBS = \
   $(DOPPLER_LIB) \
   -L$(ACE_ROOT)/ace  -lACE \
   -L$(MYSQL_ROOT)/lib \
-  -lmysqlclient_r \
+  -lmysqlclient \
   $(AAPLUS_LIB) \
   $(WCS_LIB) \
   $(NOVAS_LIB) \

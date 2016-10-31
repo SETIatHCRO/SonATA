@@ -54,6 +54,7 @@
 
 #include "DebugLog.h" 
 #include "SseArchive.h"
+#include <ace/OS.h>
 
 static const string MaxFileSizeEnvVar(
    "SSE_DEBUG_LOG_MAX_FILESIZE_MEGABYTES");
