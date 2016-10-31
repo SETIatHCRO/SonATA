@@ -6,7 +6,8 @@ source $env(HOME)/sonata_install/bin/seekerlib.tcl
 # location of tclreadline shared library
 # uncomment the appropriate directory
 #lappend ::auto_path /usr/lib
-lappend ::auto_path /usr/local/lib
+#lappend ::auto_path /usr/local/lib
+lappend ::auto_path /home/usrnm/sonata_install/lib
 
 verbose level 2
 
