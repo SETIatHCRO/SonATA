@@ -643,6 +643,9 @@ TclReadlineInitialize(Tcl_Interp* interp, char* historyfile)
      * is *not* an error.
      */
     rl_attempted_completion_function = (CPPFunction *) TclReadlineCompletion;
+    // For Ubuntu 15.04 you may need to comment out the previous line and uncoment
+    // this next line...
+    //rl_attempted_completion_function = (rl_completion_func_t *) TclReadlineCompletion;
     if (read_history(historyfile)) {
 	if (write_history(historyfile)) {
 	    Tcl_AppendResult (interp, "warning: `",
