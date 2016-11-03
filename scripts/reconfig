@@ -82,5 +82,5 @@ echo "automake..."
 automake --add-missing --force-missing
 
 echo "configure..."
-./configure --enable-maintainer-mode ${options}
+./configure ${options}
 
