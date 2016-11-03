@@ -49,8 +49,6 @@ static const char* tclrl_library = TCLRL_LIBRARY;
 static const char* tclrl_version_str = TCLRL_VERSION_STR;
 static const char* tclrl_patchlevel_str = TCLRL_PATCHLEVEL_STR;
 
-#define MALLOC(size) Tcl_Alloc((int) size)
-#define FREE(ptr) if (ptr) { Tcl_Free((char*) ptr); ptr = 0; }
 
 enum {
     _CMD_SET     = (1 << 0),
@@ -202,7 +200,7 @@ static int TclReadlineCmd(ClientData clientData, Tcl_Interp *interp, int objc,
 {
     int obj_idx, status;
 
-    static char *subCmds[] = {
+    const char *subCmds[] = {
 	"read", "initialize", "write", "add", "complete",
 	"customcompleter", "builtincompleter", "eofchar",
 	"reset-terminal", "bell", "text", "update",
@@ -222,7 +220,7 @@ static int TclReadlineCmd(ClientData clientData, Tcl_Interp *interp, int objc,
     }
 
     status = Tcl_GetIndexFromObj
-    (interp, objv[1], subCmds, "option", 0, (int *) &obj_idx);
+	(interp, objv[1], subCmds, "option", 0, (int *) &obj_idx);
 
     if (status != TCL_OK) {
 	return status;
@@ -343,7 +341,7 @@ static int TclReadlineCmd(ClientData clientData, Tcl_Interp *interp, int objc,
 		return TCL_ERROR;
 	    } else if (3 == objc) {
 		if (tclrl_custom_completer)
-		    FREE(tclrl_custom_completer);
+		    free(tclrl_custom_completer);
 		if (!blank_line(Tcl_GetStringFromObj(objv[2], 0)))
 		    tclrl_custom_completer =
 		         stripwhite(strdup(Tcl_GetStringFromObj(objv[2], 0)));
@@ -378,7 +376,7 @@ static int TclReadlineCmd(ClientData clientData, Tcl_Interp *interp, int objc,
 		return TCL_ERROR;
 	    } else if (3 == objc) {
 		if (tclrl_eof_string)
-		    FREE(tclrl_eof_string);
+		    free(tclrl_eof_string);
 		if (!blank_line(Tcl_GetStringFromObj(objv[2], 0)))
 		    tclrl_eof_string = 
 		        stripwhite(strdup(Tcl_GetStringFromObj(objv[2], 0)));
@@ -544,8 +542,8 @@ TclReadlineLineCompleteHandler(char* ptr)
 	 * tell the calling routines to terminate.
 	 */
 	TclReadlineTerminate(LINE_COMPLETE);
-	FREE(ptr);
-	FREE(expansion);
+	free(ptr);
+	free(expansion);
     }
 }
 
@@ -642,10 +640,10 @@ TclReadlineInitialize(Tcl_Interp* interp, char* historyfile)
      * directory. If this failes, this
      * is *not* an error.
      */
-    rl_attempted_completion_function = (CPPFunction *) TclReadlineCompletion;
+    //rl_attempted_completion_function = (CPPFunction *) TclReadlineCompletion;
     // For Ubuntu 15.04 you may need to comment out the previous line and uncoment
     // this next line...
-    //rl_attempted_completion_function = (rl_completion_func_t *) TclReadlineCompletion;
+    rl_attempted_completion_function = (rl_completion_func_t *) TclReadlineCompletion;
     if (read_history(historyfile)) {
 	if (write_history(historyfile)) {
 	    Tcl_AppendResult (interp, "warning: `",
@@ -683,7 +681,7 @@ TclReadlineCompletion(char* text, int start, int end)
 	    strcpy(rl_line_buffer, expansion);
 	    rl_end = strlen(expansion);
 	    rl_point += strlen(expansion) - oldlen;
-	    FREE(expansion);
+	    free(expansion);
 	    /*
 	     * TODO:
 	     * because we return 0 == matches,
@@ -692,7 +690,7 @@ TclReadlineCompletion(char* text, int start, int end)
 	     */
 	    return matches;
 	}
-	FREE(expansion);
+	free(expansion);
     }
 
     if (tclrl_custom_completer) {
@@ -709,8 +707,8 @@ TclReadlineCompletion(char* text, int start, int end)
 	state = Tcl_VarEval(tclrl_interp, tclrl_custom_completer,
 	    " \"", quoted_text, "\" ", start_s, " ", end_s,
 	    " \"", quoted_rl_line_buffer, "\"", (char*) NULL);
-	FREE(quoted_text);
-	FREE(quoted_rl_line_buffer);
+	free(quoted_text);
+	free(quoted_rl_line_buffer);
 	if (TCL_OK != state) {
 	    Tcl_AppendResult (tclrl_interp, " `", tclrl_custom_completer,
 		" \"", quoted_text, "\" ", start_s, " ", end_s,
@@ -725,12 +723,12 @@ TclReadlineCompletion(char* text, int start, int end)
 
 	if (objc) {
 	    int i, length;
-	    matches = (char**) MALLOC(sizeof(char*) * (objc + 1));
+	    matches = (char**) malloc(sizeof(char*) * (objc + 1));
 	    for (i = 0; i < objc; i++) {
 		matches[i] = strdup(Tcl_GetStringFromObj(objv[i], &length));
 		if (1 == objc && !strlen(matches[i])) {
-		    FREE(matches[i]);
-		    FREE(matches);
+		    free(matches[i]);
+		    free(matches);
 		    Tcl_ResetResult(tclrl_interp); /* clear result space */
 		    return (char**) NULL;
 		}
@@ -745,7 +743,7 @@ TclReadlineCompletion(char* text, int start, int end)
 	     */
 	    if (2 == objc && !strlen(matches[1])) {
 		i--;
-		FREE(matches[1]);
+		free(matches[1]);
 		rl_completion_append_character = '\0';
 	    }
 
@@ -785,7 +783,7 @@ TclReadlineKnownCommands(char* text, int state, int mode)
 
 	case _CMD_SET:
 
-	    new = (cmds_t *) MALLOC(sizeof(cmds_t));
+	    new = (cmds_t *) malloc(sizeof(cmds_t));
 	    new->next = (cmds_t *) NULL;
 
 	    if (!cmds) {
@@ -800,7 +798,7 @@ TclReadlineKnownCommands(char* text, int state, int mode)
 	    tmp = strdup(text);
 	    argc = TclReadlineParse(args, sizeof(args), tmp);
 
-	    new->cmd = (char**) MALLOC(sizeof(char*) * (argc + 1));
+	    new->cmd = (char**) malloc(sizeof(char*) * (argc + 1));
 
 	    for (i = 0; i < argc; i++)
 		new->cmd[i] = args[i];
