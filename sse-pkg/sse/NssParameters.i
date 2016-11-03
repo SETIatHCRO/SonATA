@@ -164,7 +164,7 @@ public:
 
    %extend {
 
-      const char * default() {return self->setDefault();}
+      //Removed for swig3.0 const char * default() {return self->setDefault();}
 
       bool isvalid() {return(self->isValid());}
 
@@ -270,7 +270,7 @@ public:
 
    %extend {
 
-      const char * default() {return self->setDefault();}
+      //Removed for swig3.0 const char * default() {return self->setDefault();}
       bool isvalid() {return(self->isValid());}
 
       const char * stat(const char* tscopeName = "all") {
@@ -318,7 +318,7 @@ public:
    const char *show(const char* paramname = "all", const char* ptype = "");
    %extend {
 
-      const char * default() {return self->setDefault();}
+      //Removed for swig3.0 const char * default() {return self->setDefault();}
       bool isvalid() {return(self->isValid());}
 
       // help is the same for all tsigXparams, so just use the first one
@@ -371,7 +371,7 @@ public:
 
    %extend {
 
-      const char * default() {return self->setDefault();}
+      //Removed for swig3.0 const char * default() {return self->setDefault();}
       bool isvalid() {return(self->isValid());}
 
       const char *stat(const char *dxName = "all")
@@ -409,7 +409,7 @@ public:
 
    %extend {
 
-      const char * default() {return self->setDefault();}
+      //Removed for swig3.0 const char * default() {return self->setDefault();}
       bool isvalid() {return(self->isValid());}
 
       const char *stat(const char *dxArchiverName = "all")
@@ -451,7 +451,7 @@ public:
 
    %extend {
 
-      const char * default() {return self->setDefault();}
+      //Removed for swig3.0 const char * default() {return self->setDefault();}
       bool isvalid() {return(self->isValid());}
 
       const char *stat(const char *channelizerName = "all")
@@ -488,7 +488,7 @@ public:
    %extend {
 
       bool isvalid()  {return(self->isValid());}
-      const char* default()  {return self->setDefault();}
+      //Removed for swig3.0 const char* default()  {return self->setDefault();}
 
       const char* stat() {return self->status();}
 
@@ -513,7 +513,7 @@ public:
 
    %extend {
       bool isvalid() {return(self->isValid());}
-      const char * default() {return self->setDefault();}
+      //Removed for swig3.0 const char * default() {return self->setDefault();}
       const char * help() { return ::help(SchedulerParamCommandName); }
    }
   
@@ -536,7 +536,7 @@ public:
    %extend {
 
       bool isvalid() {return(self->isValid());}
-      const char * default() {return self->setDefault();}
+      //Removed for swig3.0 const char * default() {return self->setDefault();}
       const char * help() { return ::help(DbParamCommandName); }
    }
 };
@@ -632,7 +632,7 @@ public:
 
       void help() {self->help();}
       bool isvalid() {return(self->isValid());}
-      const char * default() {return self->setDefault();}
+      //Removed for swig3.0 const char * default() {return self->setDefault();}
       const char * save(const char* filename) {return self->save(filename);}
       const char * names() const {return self->names();}
 
