@@ -36,6 +36,9 @@
 DEFS = -DHAVE_CONFIG_H -I. -I$(srcdir) -I$(top_builddir) \
 	 -DSSECOMMUTIL_VERBOSE_OVERRIDE @DEFS@
 
+source spacecraft-demo-xpol-env-vars.tcsh
+
+
 #For gcov (coverage) profiling:
 #GCOV_FLAGS = -fprofile-arcs -ftest-coverage
 #DEBUGFLAGS=$(GCOV_FLAGS)
@@ -133,6 +136,9 @@ LDADD = $(SSE_LIBS)
 NssParameterstcl_wrap.cpp: NssParameterstcl.i NssParameters.i tclsh.i
 	swig -nodefaultctor -nodefaultdtor -tcl8 -c++ $(DEFS) -o NssParameterstcl_wrap.cpp $(srcdir)/NssParameterstcl.i
 
+# Disable optimization. Cuases conflict with ACE, which is -O3. 
+CFLAGS = -g -pthread 
+CXXFLAGS = -g -pthread -Wall -Woverloaded-virtual -fno-default-inline -ggdb $(DEBUGFLAGS)
 
 # This list is meant to be in roughly dependency order, with
 # the latter entries dependent on the earlier ones.
