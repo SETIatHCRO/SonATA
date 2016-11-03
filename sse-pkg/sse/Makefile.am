@@ -131,7 +131,7 @@ LDFLAGS = -R$(ACE_ROOT)/ace -R$(MYSQL_ROOT)/lib
 LDADD = $(SSE_LIBS)
 
 NssParameterstcl_wrap.cpp: NssParameterstcl.i NssParameters.i tclsh.i
-	swig -nodefault -tcl8 -c++ $(DEFS) -o NssParameterstcl_wrap.cpp $(srcdir)/NssParameterstcl.i
+	swig -nodefaultctor -nodefaultdtor -tcl8 -c++ $(DEFS) -o NssParameterstcl_wrap.cpp $(srcdir)/NssParameterstcl.i
 
 
 # This list is meant to be in roughly dependency order, with
