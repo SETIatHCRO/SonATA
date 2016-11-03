@@ -132,7 +132,11 @@ int32_t readMask( vector<struct FrequencyBand>& freqBandList,
 		bandCovered->bandwidth = bandwidth;
 	    }
 	}
+// Free only if lower version of TCL. A free here with the wrong verion
+// will cause a segfault.
+#if (TCL_MAJOR_VERSION <= 8) and (TCL_MINOR_VERSION <= 3)
 	free((char *)maskv);
+#endif
 
 	// frequency and bandwith pairs for masks
 
@@ -170,7 +174,11 @@ int32_t readMask( vector<struct FrequencyBand>& freqBandList,
 		    freqBandList.push_back(freqBand);
 		}
 	    }
+// Free only if lower version of TCL. A free here with the wrong verion
+// will cause a segfault.
+#if (TCL_MAJOR_VERSION <= 8) and (TCL_MINOR_VERSION <= 3)
 	    free((char *)maskv);
+#endif
 	}
 	sort (freqBandList.begin(), freqBandList.end(), lessFreq);
 
